@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
-#include <limits.h>
 
 static	char	*ft_convert(int index, int sign, long value)
 {

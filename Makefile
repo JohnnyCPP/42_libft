@@ -5,62 +5,90 @@
 #                                                     +:+ +:+         +:+      #
 #    By: jonnavar <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/10/02 22:38:21 by jonnavar          #+#    #+#              #
-#    Updated: 2023/10/02 22:38:58 by jonnavar         ###   ########.fr        #
+#    Created: 2024/09/26 20:27:13 by jonnavar          #+#    #+#              #
+#    Updated: 2024/09/26 20:37:23 by jonnavar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# file name
-NAME			= libft.a
 
-# compiler and flags
+## VARIABLE DECLARATIONS ##
+###########################
+
+
+INCLUDES_PATH	= ./include/
+OBJECTS_PATH	= ./object/
+PRINTF_OBJ_PATH	= ${OBJECTS_PATH}ft_printf/
+GNL_OBJ_PATH	= ${OBJECTS_PATH}ft_gnl/
+SOURCES_PATH	= ./src/
+
+
+LIBRARY_NAME	= libft.a
+
+
 CC				= cc
 CFLAGS			= -Wall -Wextra -Werror
+INCLUDE			= -I ${INCLUDES_PATH}
+MAKE_LIB		= make -sC
 
-# there are no directories
-HEADERS			= .
 
-# source and object files
-SOURCE_FILES	= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_strlen.c ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c ft_strlcpy.c ft_strlcat.c ft_toupper.c ft_tolower.c ft_strchr.c ft_strrchr.c ft_strncmp.c ft_memchr.c ft_memcmp.c ft_strnstr.c ft_atoi.c ft_calloc.c ft_strdup.c ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c
-OBJECT_FILES	= ${SOURCE_FILES:.c=.o}
-BONUS_FILES	= ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstdelone_bonus.c ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c
-BONUS_OBJECTS	= ${BONUS_FILES:.c=.o}
+PRINTF_SOURCES	= $(wildcard ${SOURCES_PATH}ft_printf/*.c)
+GNL_SOURCES		= $(wildcard ${SOURCES_PATH}ft_gnl/*.c)
+SOURCE_FILES	= $(wildcard ${SOURCES_PATH}*.c) ${PRINTF_SOURCES} ${GNL_SOURCES}
+OBJECT_FILES	= $(patsubst ${SOURCES_PATH}%.c, ${OBJECTS_PATH}%.o, ${SOURCE_FILES})
 
-# library creation. "r"="replace" "c"="create"
-CREATE_LIB	= ar rc
-UPDATE_LIB	= ar r
+
 CREATE_INDEX	= ranlib
+CREATE_LIB		= ar rc
+CREATE_PATH		= mkdir -p
+DELETE_FILE		= rm -f
+DELETE_PATH		= rm -fr
 
-# remove files
-DELETE			= rm -f
 
-# compile source files into object files
-.c.o:
-	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+ALL				= all
+DELETE			= delete_library
+CLEAN			= clean
+FCLEAN			= fclean
+RE				= re
 
-# builds the library
-${NAME}: ${OBJECT_FILES}
-	${CREATE_LIB} ${NAME} ${OBJECT_FILES}
-	${CREATE_INDEX} ${NAME}
 
-# adds the bonus functions to the library
-bonus: ${BONUS_OBJECTS}
-	${UPDATE_LIB} ${NAME} ${BONUS_OBJECTS}
+## RULES ##
+###########
 
-# deletes the bonus object files
-bclean:
-	${DELETE} ${BONUS_OBJECTS}
 
-# default rule, builds the library
-all: ${NAME}
+${ALL}: ${LIBRARY_NAME}
 
-# deletes object files
-clean:
-	${DELETE} ${OBJECT_FILES}
 
-# deletes object files and the library
-fclean: clean
-	${DELETE} ${NAME}
+${OBJECTS_PATH}:
+	@${CREATE_PATH} ${OBJECTS_PATH}
+	@${CREATE_PATH} ${PRINTF_OBJ_PATH}
+	@${CREATE_PATH} ${GNL_OBJ_PATH}
 
-# deletes object files, the library and builds it
-re: fclean all
+
+${OBJECTS_PATH}%.o: ${SOURCES_PATH}%.c | ${OBJECTS_PATH}
+	@${CC} ${CFLAGS} ${INCLUDE} -c $< -o $@
+
+
+${LIBRARY_NAME}: ${OBJECT_FILES}
+	@${CREATE_LIB} ${LIBRARY_NAME} ${OBJECT_FILES}
+	@${CREATE_INDEX} ${LIBRARY_NAME}
+	@echo "The library \"${LIBRARY_NAME}\" has been compiled."
+
+
+${DELETE}:
+	@${DELETE_FILE} ${LIBRARY_NAME}
+	@echo "The library \"${LIBRARY_NAME}\" has been deleted."
+
+
+${CLEAN}:
+	@${DELETE_FILE} ${OBJECT_FILES}
+	@${DELETE_PATH} ${OBJECTS_PATH}
+	@echo "The objects of library \"${LIBRARY_NAME}\" have been deleted."
+
+
+${FCLEAN}: ${CLEAN} ${DELETE}
+
+
+${RE}: ${FCLEAN} ${ALL}
+
+
+.PHONY: ${ALL} ${DELETE} ${CLEAN} ${FCLEAN} ${RE}

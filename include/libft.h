@@ -14,6 +14,14 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <limits.h>
+
+// printf
+# include <stdarg.h>
+# define NULL_POINTER "(nil)"
+// gnl
+# define LAST_FD 256
+# define BUFFER_SIZE 1
 
 typedef struct s_list
 {
@@ -77,5 +85,42 @@ void	ft_lstdelone(t_list *list, void (*function)(void *));
 void	ft_lstclear(t_list **list, void (*function)(void *));
 void	ft_lstiter(t_list *list, void (*function)(void *));
 t_list	*ft_lstmap(t_list *list, void *(*f)(void *), void (*d)(void *));
+
+// printf
+// //////
+
+// %p, %c, %s
+void	ft_print_ptr(va_list args, int *count);
+void	ft_print_char(va_list args, int *count);
+void	ft_print_str(va_list args, int *count);
+void	ft_str_ph(char const ph, va_list args, int *i, int *count);
+
+// %d, %i, %u
+void	ft_print_num(va_list args, int *count);
+void	ft_print_unum(va_list args, int *count);
+void	ft_num_ph(char const ph, va_list args, int *i, int *count);
+
+// %%
+void	ft_ph_ph(int *i, int *count);
+
+// %x, %X
+void	ft_print_lch(va_list args, int *count);
+void	ft_print_uch(va_list args, int *count);
+void	ft_base_ph(char const ph, va_list args, int *i, int *count);
+
+// wrong placeholder
+void	ft_no_ph(int *i, int *count);
+
+int		ft_printf(char const *format, ...);
+
+// gnl
+// ///
+
+char	*ft_gnl(int fd);
+char	*ft_gnl_contains(const char *string, char character);
+size_t	ft_gnl_length(const char *string);
+char	*ft_gnl_concat(const char *source, const char *destination);
+char	*ft_gnl_copy(const char *string);
+char	*ft_gnl_cut(const char *string, size_t start, size_t length);
 
 #endif
