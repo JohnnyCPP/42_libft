@@ -9,7 +9,79 @@
 ## Project Structure
 
 The project is organized into the following structure:
+```
+.
+├── include
+│   └── libft.h
+├── Makefile
+├── README.md
+└── src
+    ├── ft_atoi.c
+    ├── ft_bzero.c
+    ├── ft_calloc.c
+    ├── ft_gnl
+    │   ├── ft_gnl.c
+    │   └── ft_gnl_utils.c
+    ├── ft_isalnum.c
+    ├── ft_isalpha.c
+    ├── ft_isascii.c
+    ├── ft_isdigit.c
+    ├── ft_islower.c
+    ├── ft_isprint.c
+    ├── ft_isupper.c
+    ├── ft_itoa.c
+    ├── ft_list
+    │   ├── ft_list_add_back.c
+    │   ├── ft_list_add_front.c
+    │   ├── ft_list_clear.c
+    │   ├── ft_list_delete_one.c
+    │   ├── ft_list_iterate.c
+    │   ├── ft_list_last.c
+    │   ├── ft_list_map.c
+    │   ├── ft_list_new.c
+    │   └── ft_list_size.c
+    ├── ft_memchr.c
+    ├── ft_memcmp.c
+    ├── ft_memcpy.c
+    ├── ft_memmove.c
+    ├── ft_memset.c
+    ├── ft_printf
+    │   ├── ft_pf_char.c
+    │   ├── ft_pf_int.c
+    │   ├── ft_pf_lower_hex.c
+    │   ├── ft_pf_ph_base.c
+    │   ├── ft_pf_ph_default.c
+    │   ├── ft_pf_ph_int.c
+    │   ├── ft_pf_ph_percentage.c
+    │   ├── ft_pf_ph_str.c
+    │   ├── ft_pf_ptr.c
+    │   ├── ft_pf_str.c
+    │   ├── ft_pf_uns_int.c
+    │   ├── ft_pf_upper_hex.c
+    │   └── ft_printf.c
+    ├── ft_putchar_fd.c
+    ├── ft_putendl_fd.c
+    ├── ft_putnbr_fd.c
+    ├── ft_putstr_fd.c
+    ├── ft_split.c
+    ├── ft_strchr.c
+    ├── ft_strdup.c
+    ├── ft_striteri.c
+    ├── ft_strjoin.c
+    ├── ft_strlcat.c
+    ├── ft_strlcpy.c
+    ├── ft_strlen.c
+    ├── ft_strmapi.c
+    ├── ft_strncmp.c
+    ├── ft_strnstr.c
+    ├── ft_strrchr.c
+    ├── ft_strtrim.c
+    ├── ft_substr.c
+    ├── ft_tolower.c
+    └── ft_toupper.c
 
+6 directories, 63 files
+```
 
 ### Description of Directories
 
@@ -38,6 +110,20 @@ The `Makefile` provides the following functionalities:
 - **re**: Rebuilds the library from scratch by running `fclean` followed by `all`.
 
 ---
+
+## Data Structures
+
+### `t_list`
+
+The linked list structure used in this library is defined as follows:
+
+```c
+typedef struct s_list
+{
+    void            *content;
+    struct s_list   *next;
+}   t_list;
+```
 
 ## Function Documentation
 
@@ -246,17 +332,3 @@ The `Makefile` provides the following functionalities:
   - **Return**: A pointer to the newly allocated string containing the cut portion, or NULL if the original string is NULL or if memory allocation fails.
 
 ---
-
-## Data Structures
-
-### `t_list`
-
-The linked list structure used in this library is defined as follows:
-
-```c
-typedef struct s_list
-{
-    void            *content;
-    struct s_list   *next;
-}   t_list;
-
