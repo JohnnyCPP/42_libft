@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
+/*   ft_list_last.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jonnavar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,22 +11,14 @@
 /* ************************************************************************** */
 #include "libft.h"
 
-void	ft_lstclear(t_list **list, void (*function)(void *))
+t_list	*ft_list_last(t_list *list)
 {
 	t_list	*pointer;
-	t_list	*auxiliar;
 
-	if (!list || !function)
-		return ;
-	pointer = *list;
-	auxiliar = pointer->next_node;
-	while (pointer)
-	{
-		(*function)(pointer->data);
-		free(pointer);
-		pointer = auxiliar;
-		if (auxiliar)
-			auxiliar = auxiliar->next_node;
-	}
-	*list = (void *) 0;
+	if (!list)
+		return ((void *) 0);
+	pointer = list;
+	while (pointer->next_node)
+		pointer = pointer->next_node;
+	return (pointer);
 }

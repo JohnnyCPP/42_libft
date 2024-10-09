@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_ph.c                                        :+:      :+:    :+:   */
+/*   ft_list_add_front.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jonnavar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/25 16:01:23 by jonnavar          #+#    #+#             */
-/*   Updated: 2024/01/25 19:02:01 by jonnavar         ###   ########.fr       */
+/*   Created: 2023/11/14 08:03:45 by jonnavar          #+#    #+#             */
+/*   Updated: 2023/11/14 08:04:03 by jonnavar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-void	ft_str_ph(char const ph, va_list args, int *i, int *count)
+void	ft_list_add_front(t_list **list, t_list *new_node)
 {
-	*i += 2;
-	if (ph == 'c')
-		ft_print_char(args, count);
-	else if (ph == 's')
-		ft_print_str(args, count);
-	else
-		ft_print_ptr(args, count);
+	if (!list || !new_node)
+		return ;
+	new_node->next_node = *list;
+	*list = new_node;
 }

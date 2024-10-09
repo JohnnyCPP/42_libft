@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_pf_ph_base.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jonnavar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 08:03:45 by jonnavar          #+#    #+#             */
-/*   Updated: 2023/11/14 08:04:03 by jonnavar         ###   ########.fr       */
+/*   Created: 2024/01/25 16:01:23 by jonnavar          #+#    #+#             */
+/*   Updated: 2024/01/25 19:02:01 by jonnavar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-void	ft_lstiter(t_list *list, void (*function)(void *))
+void	ft_pf_ph_base(char const ph, va_list args, int *i, int *count)
 {
-	t_list	*pointer;
-
-	if (!list || !function)
-		return ;
-	pointer = list;
-	while (pointer)
-	{
-		(*function)(pointer->data);
-		pointer = pointer->next_node;
-	}
+	*i += 2;
+	if (ph == 'x')
+		ft_pf_lower_hex(args, count);
+	else
+		ft_pf_upper_hex(args, count);
 }

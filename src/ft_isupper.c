@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_str.c                                     :+:      :+:    :+:   */
+/*   ft_isupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jonnavar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/25 16:01:23 by jonnavar          #+#    #+#             */
-/*   Updated: 2024/01/25 16:04:12 by jonnavar         ###   ########.fr       */
+/*   Created: 2023/10/02 17:55:21 by jonnavar          #+#    #+#             */
+/*   Updated: 2023/10/02 17:56:00 by jonnavar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
-void	ft_print_str(va_list args, int *count)
+int	ft_isupper(char character)
 {
-	char		*string;
-	size_t		length;
-
-	string = va_arg(args, char *);
-	length = ft_strlen(string);
-	ft_putstr_fd(string, 1);
-	*count += length;
+	if ('A' <= character && character <= 'Z')
+		return (1);
+	return (0);
 }

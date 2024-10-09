@@ -1,21 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_num_ph.c                                        :+:      :+:    :+:   */
+/*   ft_list_clear.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jonnavar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/25 16:01:23 by jonnavar          #+#    #+#             */
-/*   Updated: 2024/01/25 19:02:01 by jonnavar         ###   ########.fr       */
+/*   Created: 2023/11/14 08:03:45 by jonnavar          #+#    #+#             */
+/*   Updated: 2023/11/14 08:04:03 by jonnavar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-void	ft_num_ph(char const ph, va_list args, int *i, int *count)
+void	ft_list_clear(t_list **list, void (*function)(void *))
 {
-	*i += 2;
-	if (ph == 'd' || ph == 'i')
-		ft_print_num(args, count);
-	else
-		ft_print_unum(args, count);
+	t_list	*pointer;
+	t_list	*auxiliar;
+
+	if (!list || !function)
+		return ;
+	pointer = *list;
+	auxiliar = pointer->next_node;
+	while (pointer)
+	{
+		(*function)(pointer->data);
+		free(pointer);
+		pointer = auxiliar;
+		if (auxiliar)
+			auxiliar = auxiliar->next_node;
+	}
+	*list = (void *) 0;
 }

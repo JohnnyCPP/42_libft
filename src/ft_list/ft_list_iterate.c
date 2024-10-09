@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
+/*   ft_list_iterate.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jonnavar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,10 +11,16 @@
 /* ************************************************************************** */
 #include "libft.h"
 
-void	ft_lstadd_front(t_list **list, t_list *new_node)
+void	ft_list_iterate(t_list *list, void (*function)(void *))
 {
-	if (!list || !new_node)
+	t_list	*pointer;
+
+	if (!list || !function)
 		return ;
-	new_node->next_node = *list;
-	*list = new_node;
+	pointer = list;
+	while (pointer)
+	{
+		(*function)(pointer->data);
+		pointer = pointer->next_node;
+	}
 }

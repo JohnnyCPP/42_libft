@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_pf_ph_str.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jonnavar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/02 17:55:21 by jonnavar          #+#    #+#             */
-/*   Updated: 2023/10/02 17:56:00 by jonnavar         ###   ########.fr       */
+/*   Created: 2024/01/25 16:01:23 by jonnavar          #+#    #+#             */
+/*   Updated: 2024/01/25 19:02:01 by jonnavar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-int	ft_isalpha(char character)
+void	ft_pf_ph_str(char const ph, va_list args, int *i, int *count)
 {
-	if (ft_isupper(character) || ft_islower(character))
-		return (1);
-	return (0);
+	*i += 2;
+	if (ph == 'c')
+		ft_pf_char(args, count);
+	else if (ph == 's')
+		ft_pf_str(args, count);
+	else
+		ft_pf_ptr(args, count);
 }

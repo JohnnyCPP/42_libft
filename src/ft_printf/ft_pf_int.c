@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_pf_int.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jonnavar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/02 17:55:21 by jonnavar          #+#    #+#             */
-/*   Updated: 2023/10/02 17:56:00 by jonnavar         ###   ########.fr       */
+/*   Created: 2024/01/25 16:01:23 by jonnavar          #+#    #+#             */
+/*   Updated: 2024/01/25 16:04:12 by jonnavar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-int	ft_isalpha(char character)
+void	ft_pf_int(va_list args, int *count)
 {
-	if (ft_isupper(character) || ft_islower(character))
-		return (1);
-	return (0);
+	int		value;
+	char	*string;
+	int		length;
+
+	value = va_arg(args, int);
+	string = ft_itoa(value);
+	ft_putstr_fd(string, 1);
+	length = ft_strlen(string);
+	*count += length;
 }
