@@ -112,6 +112,24 @@ int		ft_isascii(char character);
 int		ft_isprint(char c);
 
 /**
+ * @brief Checks if a character is a plus or minus sign.
+ *
+ * @param character The character.
+ *
+ * @return 1 if it's a sign, 0 if it's not.
+ */
+int		ft_issign(char c);
+
+/**
+ * @brief Checks if a character is a space.
+ *
+ * @param character The character.
+ *
+ * @return 1 if it's a space, 0 if it's not.
+ */
+int		ft_isspace(char c);
+
+/**
  * @brief Calculates the length of a string.
  *
  * @param[character] A pointer to the first character of the string.
@@ -311,6 +329,28 @@ int		ft_memcmp(const void *ptr_find, const void *ptr_str, size_t length);
 char	*ft_strnstr(const char *string, const char *to_find, size_t length);
 
 /**
+ * @brief Validates the string representation of an int against overflows.
+ *
+ * @param value The string representation of an integer value.
+ *
+ * @return If the value doens't trigger overflow against INT_MIN or INT_MAX,
+ *         returns 0. Returns 1 for positive overflows,
+ *         and -1 for negative overflows.
+ */
+int		ft_ioverflow(const char *value);
+
+/**
+ * @brief Validates the string representation of a long against overflows.
+ *
+ * @param value The string representation of an integer value.
+ *
+ * @return If the value doens't trigger overflow against INT_MIN or INT_MAX,
+ *         returns 0. Returns 1 for positive overflows,
+ *         and -1 for negative overflows.
+ */
+int		ft_loverflow(const char *value);
+
+/**
  * @brief Converts a string to an integer.
  *
  * @param value A pointer to the string containing the number to be converted.
@@ -323,6 +363,20 @@ char	*ft_strnstr(const char *string, const char *to_find, size_t length);
  * an optional sign ('+' or '-'), and numeric characters.
  */
 int		ft_atoi(const char *value);
+
+/**
+ * @brief Converts a string to a long.
+ *
+ * @param value A pointer to the string containing the number to be converted.
+ *
+ * @return The long value represented by the string,  
+ *         or 0 if the string doesn't contain a valid number.
+ *
+ * This function converts the initial portion of the string pointed to 
+ * by "value" to a long. It handles optional leading spaces, 
+ * an optional sign ('+' or '-'), and numeric characters.
+ */
+long	ft_atol(const char *value);
 
 /**
  * @brief Allocates memory for an array and initializes all bytes to zero.
@@ -431,6 +485,22 @@ char	**ft_split(const char *string, const char delim);
 char	*ft_itoa(int value);
 
 /**
+ * @brief Converts a long to its string representation.
+ *
+ * @param value The long to be converted.
+ *
+ * @return A pointer to the string containing the representation 
+ *         of the long, or NULL if memory allocation fails.
+ *
+ * This function takes a long "value" and converts it to a dynamically 
+ * allocated string representation.
+ *
+ * The string is null-terminated and can represent both positive and 
+ * negative longs.
+ */
+char	*ft_ltoa(long value);
+
+/**
  * @brief Applies a function to each character of a string.
  *
  * @param string The input string to be transformed.
@@ -475,7 +545,7 @@ void	ft_striteri(char *string, void (*function)(unsigned int, char*));
  * This function sends the "character" to the given "file_descriptor", 
  * allowing for output to standard output, files, or other output streams.
  */
-void	ft_putchar_fd(char character, int file_descriptor);
+void	ft_putchar_fd(const char character, int file_descriptor);
 
 /**
  * @brief Writes a string to a file descriptor.
@@ -488,7 +558,7 @@ void	ft_putchar_fd(char character, int file_descriptor);
  *
  * If the string is NULL, the function does nothing.
  */
-void	ft_putstr_fd(char *string, int file_descriptor);
+void	ft_putstr_fd(const char *string, int file_descriptor);
 
 /**
  * @brief Writes a string to a file descriptor, followed by a newline.
@@ -501,7 +571,7 @@ void	ft_putstr_fd(char *string, int file_descriptor);
  *
  * If the string is NULL, the function does nothing.
  */
-void	ft_putendl_fd(char *string, int file_descriptor);
+void	ft_putendl_fd(const char *string, int file_descriptor);
 
 /**
  * @brief Outputs an integer, as a string, to a file descriptor.
@@ -516,6 +586,20 @@ void	ft_putendl_fd(char *string, int file_descriptor);
  * allocated memory is freed after use.
  */
 void	ft_putnbr_fd(int value, int file_descriptor);
+
+/**
+ * @brief Outputs a long, as a string, to a file descriptor.
+ *
+ * @param value The long.
+ * @param file_descriptor The file descriptor.
+ *
+ * This function converts a long to a string and writes it to the 
+ * specified file descriptor.
+ *
+ * It uses "ft_ltoa" to perform the conversion, and it ensures the 
+ * allocated memory is freed after use.
+ */
+void	ft_putlong_fd(long value, int file_descriptor);
 
 /**
  * @brief Creates a new list node with the provided data.
@@ -698,6 +782,22 @@ void	ft_pf_ph_str(char const ph, va_list args, int *i, int *count);
 void	ft_pf_int(va_list args, int *count);
 
 /**
+ * @brief Prints a long value from a variadic argument list.
+ *
+ * @param args The variadic argument list to retrieve the long from.
+ * @param count A pointer to the counter, updated with the number 
+ *              of characters printed.
+ *
+ * This function retrieves a long from the variadic argument list, 
+ * converts it to a string using "ft_ltoa", and prints it to the 
+ * standard output using "ft_putstr_fd".
+ *
+ * It also updates the count of printed characters by adding 
+ * the length of the printed string.
+ */
+void	ft_pf_long(va_list args, int *count);
+
+/**
  * @brief Prints an unsigned integer from a variadic argument list.
  *
  * @param args The variadic argument list to retrieve the value from.
@@ -711,7 +811,7 @@ void	ft_pf_int(va_list args, int *count);
 void	ft_pf_uns_int(va_list args, int *count);
 
 /**
- * @brief Handles a numeric format specifier.
+ * @brief Handles an integer format specifier.
  *
  * @param ph The format specifier character.
  * @param args The variadic argument list from which the values are retrieved.
@@ -726,6 +826,23 @@ void	ft_pf_uns_int(va_list args, int *count);
  * It handles specifiers for integer, and unsigned integer formats.
  */
 void	ft_pf_ph_int(char const ph, va_list args, int *i, int *count);
+
+/**
+ * @brief Handles a long format specifier.
+ *
+ * @param ph The format specifier character.
+ * @param args The variadic argument list from which the values are retrieved.
+ * @param i A pointer to the index of the format string.
+ * @param count A pointer to the counter.
+ *
+ * This function checks the "ph" format specifier and calls the appropiate 
+ * print function from the variadic argument list.
+ *
+ * It also increments both the index and the count of printed characters.
+ *
+ * It handles specifiers for the signed long format.
+ */
+void	ft_pf_ph_long(char const ph, va_list args, int *i, int *count);
 
 /**
  * @brief Prints a percentage sign '%' and updates the counters.
